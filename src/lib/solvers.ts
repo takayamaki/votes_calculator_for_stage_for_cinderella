@@ -30,6 +30,7 @@ const compact: Compact = (array) => array.filter((elm) => elm != null);
 
 export const stepSolver: StepSolver = ({ nameQuantityTuples }) => {
   const steps: VoteStep[] = [];
+  const nameOrder = sortByRemainQuantity(nameQuantityTuples).map(extractName);
 
   while (nameQuantityTuples.length > 0) {
     const sotedTuples = sortByRemainQuantity(nameQuantityTuples);
@@ -42,7 +43,10 @@ export const stepSolver: StepSolver = ({ nameQuantityTuples }) => {
       )
     );
 
-    const dividedNames = dividedTuples.map(extractName);
+    const dividedNames = dividedTuples
+      .map(extractName)
+      .sort((a, b) => nameOrder.indexOf(a) - nameOrder.indexOf(b));
+
     steps.push([
       dividedNames[0],
       dividedNames[1],
