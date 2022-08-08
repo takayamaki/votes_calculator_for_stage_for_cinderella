@@ -1,4 +1,4 @@
-import { VoteStep as VoteStepType } from '../../lib/voteStepSolver';
+import { VoteStep as VoteStepType } from '../../lib/types';
 
 const VoteStep = (step: VoteStepType, index: number) => {
   const cells = step.map((elm) => <td>{elm ?? '任意'}</td>);

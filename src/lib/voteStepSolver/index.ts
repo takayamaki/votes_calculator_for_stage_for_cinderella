@@ -1,6 +1,5 @@
-type Name = string;
-type NameQuantityTuple = [Name, number];
-export type VoteStep = [Name, Name, Name, Name, Name, number];
+import { Name, NameQuantityTuple, VoteStep } from '../types';
+
 type VoteStepSolver = (input: {
   nameQuantityTuples: NameQuantityTuple[];
 }) => VoteStep[];

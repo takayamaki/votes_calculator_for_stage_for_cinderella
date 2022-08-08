@@ -1,6 +1,7 @@
-import { voteStepSolver, VoteStep } from '../../lib/voteStepSolver';
+import { voteStepSolver } from '../../lib/voteStepSolver';
 import { useMemo, useState } from 'preact/hooks';
 import { VoteStepList } from './voteStepList';
+import { VoteStep } from '../../lib/types';
 
 export const VoteStepSolver = () => {
   const [input, setInput] = useState('');
