@@ -13,3 +13,21 @@ it('', () => {
     })
   ).toStrictEqual([['A', 'B', 'C', 'D', 'E', 1]]);
 });
+
+it('', () => {
+  expect(
+    stepSolver({
+      nameQuantityTuples: [
+        ['A', 2],
+        ['B', 2],
+        ['C', 2],
+        ['D', 2],
+        ['E', 1],
+        ['F', 1],
+      ],
+    })
+  ).toStrictEqual([
+    ['A', 'B', 'C', 'D', 'E', 1],
+    ['A', 'B', 'C', 'D', 'F', 1],
+  ]);
+});
