@@ -52,7 +52,7 @@ it('3 step', () => {
   ]);
 });
 
-it('3 step(2)', () => {
+it('2 step(2)', () => {
   expect(
     stepSolver({
       nameQuantityTuples: [
@@ -66,8 +66,7 @@ it('3 step(2)', () => {
       ],
     })
   ).toStrictEqual([
-    ['A', 'B', 'C', 'D', 'E', 1],
-    ['A', 'B', 'C', 'D', 'E', 1],
+    ['A', 'B', 'C', 'D', 'E', 2],
     ['A', 'B', 'C', 'F', 'G', 1],
   ]);
 });
@@ -92,7 +91,7 @@ it('3 step(3)', () => {
   ]);
 });
 
-it('24 steps', () => {
+it('23 steps', () => {
   expect(
     stepSolver({
       nameQuantityTuples: [
@@ -133,8 +132,7 @@ it('24 steps', () => {
     ['A', 'F', 'K', 'P', 'Q', 20],
     ['A', 'L', 'M', 'P', 'R', 8],
     ['A', 'L', 'M', 'Q', 'R', 8],
-    ['A', 'F', 'G', 'L', 'R', 1],
-    ['A', 'F', 'G', 'L', 'R', 1],
+    ['A', 'F', 'G', 'L', 'R', 2],
     ['A', 'F', 'G', 'M', 'R', 1],
     ['A', 'F', 'G', 'L', 'M', 1],
     ['A', 'F', 'G', 'K', 'M', 1],

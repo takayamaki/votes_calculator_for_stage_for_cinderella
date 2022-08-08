@@ -28,6 +28,9 @@ const uniqArray: UniqArray = (array) =>
 type Compact = <T extends any>(array: T[]) => T[];
 const compact: Compact = (array) => array.filter((elm) => elm != null);
 
+const isEqual = (a: Array<any>, b: Array<any>): boolean =>
+  JSON.stringify(a) == JSON.stringify(b);
+
 type SolveByGreedyMethod = (input: {
   remain: NameQuantityTuple[];
   steps: VoteStep[];
@@ -56,16 +59,21 @@ const solveByGrddeyMethod: SolveByGreedyMethod = ({
     .map(extractName)
     .sort((a, b) => nameOrder.indexOf(a) - nameOrder.indexOf(b));
 
-  steps.push([
-    dividedNames[0],
-    dividedNames[1],
-    dividedNames[2],
-    dividedNames[3],
-    dividedNames[4],
-    quantityToDivide,
-  ]);
+  const lastStep = fetchLastElement(steps);
+  if (lastStep && isEqual(lastStep.slice(0, 5), dividedNames)) {
+    lastStep[5] += quantityToDivide;
+  } else {
+    steps.push([
+      dividedNames[0],
+      dividedNames[1],
+      dividedNames[2],
+      dividedNames[3],
+      dividedNames[4],
+      quantityToDivide,
+    ]);
+  }
 
-  dividedTuples.slice(0, 5).forEach((tpl) => (tpl[1] -= quantityToDivide));
+  dividedTuples.forEach((tpl) => (tpl[1] -= quantityToDivide));
 
   const nextRemain = remain.filter((tpl) => extractRemainQuantity(tpl) != 0);
 
