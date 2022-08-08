@@ -1,8 +1,8 @@
-import { stepSolver } from './solvers';
+import { voteStepSolver } from '.';
 
 it('1 step', () => {
   expect(
-    stepSolver({
+    voteStepSolver({
       nameQuantityTuples: [
         ['A', 1],
         ['B', 1],
@@ -16,7 +16,7 @@ it('1 step', () => {
 
 it('2 step', () => {
   expect(
-    stepSolver({
+    voteStepSolver({
       nameQuantityTuples: [
         ['A', 2],
         ['B', 2],
@@ -34,7 +34,7 @@ it('2 step', () => {
 
 it('3 step', () => {
   expect(
-    stepSolver({
+    voteStepSolver({
       nameQuantityTuples: [
         ['A', 3],
         ['B', 3],
@@ -54,7 +54,7 @@ it('3 step', () => {
 
 it('2 step(2)', () => {
   expect(
-    stepSolver({
+    voteStepSolver({
       nameQuantityTuples: [
         ['A', 3],
         ['B', 3],
@@ -73,7 +73,7 @@ it('2 step(2)', () => {
 
 it('3 step(3)', () => {
   expect(
-    stepSolver({
+    voteStepSolver({
       nameQuantityTuples: [
         ['A', 3],
         ['B', 3],
@@ -93,7 +93,7 @@ it('3 step(3)', () => {
 
 it('23 steps', () => {
   expect(
-    stepSolver({
+    voteStepSolver({
       nameQuantityTuples: [
         ['A', 16341],
         ['B', 13037],
@@ -144,7 +144,7 @@ it('23 steps', () => {
 
 it('35 steps', () => {
   expect(
-    stepSolver({
+    voteStepSolver({
       nameQuantityTuples: [
         ['A', 16341],
         ['B', 16341],

@@ -1,10 +1,9 @@
 type Name = string;
 type NameQuantityTuple = [Name, number];
-type StepSolverInput = {
-  nameQuantityTuples: NameQuantityTuple[];
-};
 export type VoteStep = [Name, Name, Name, Name, Name, number];
-type StepSolver = (input: StepSolverInput) => VoteStep[];
+type VoteStepSolver = (input: {
+  nameQuantityTuples: NameQuantityTuple[];
+}) => VoteStep[];
 
 type ExtractName = (tuple: NameQuantityTuple) => Name;
 const extractName: ExtractName = (tuple) => tuple[0];
@@ -84,7 +83,7 @@ const solveByGrddeyMethod: SolveByGreedyMethod = ({
   });
 };
 
-export const stepSolver: StepSolver = ({ nameQuantityTuples }) => {
+export const voteStepSolver: VoteStepSolver = ({ nameQuantityTuples }) => {
   const steps = solveByGrddeyMethod({
     remain: nameQuantityTuples,
     steps: [],

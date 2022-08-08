@@ -1,4 +1,4 @@
-import { stepSolver, VoteStep } from '../../lib/solvers';
+import { voteStepSolver, VoteStep } from '../../lib/voteStepSolver';
 import { useMemo, useState } from 'preact/hooks';
 import { VoteStepList } from './voteStepList';
 
@@ -25,7 +25,7 @@ export const VoteStepSolver = () => {
     return lines.map(parseLine);
   }, [input]);
 
-  const steps: VoteStep[] = stepSolver({
+  const steps: VoteStep[] = voteStepSolver({
     nameQuantityTuples: stepSolverInput,
   });
 
