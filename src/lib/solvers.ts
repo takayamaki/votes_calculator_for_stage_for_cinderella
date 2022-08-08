@@ -3,7 +3,7 @@ type NameQuantityTuple = [Name, number];
 type StepSolverInput = {
   nameQuantityTuples: NameQuantityTuple[];
 };
-type VoteStep = [Name, Name, Name, Name, Name, number];
+export type VoteStep = [Name, Name, Name, Name, Name, number];
 type StepSolver = (input: StepSolverInput) => VoteStep[];
 
 type ExtractName = (tuple: NameQuantityTuple) => Name;
