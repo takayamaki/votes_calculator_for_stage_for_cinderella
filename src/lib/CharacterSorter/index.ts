@@ -24,14 +24,19 @@ export class CharacterSorter {
     this.arraysToBeMerge = candicates.map((candicate) => [[candicate]]);
 
     if (this.arraysToBeMerge.length <= 1) {
-      this.mergedArrays = this.arraysToBeMerge;
-      this.isFinished = true;
+      this.finishSort();
       return;
     }
 
     this.leftArray = popItem(this.arraysToBeMerge);
     this.rightArray = popItem(this.arraysToBeMerge);
   }
+
+  finishSort = () => {
+    this.result = this.arraysToBeMerge.pop();
+    this.mergedArrays = [];
+    this.isFinished = true;
+  };
 
   nextMerging = (remain: OrderdArray) => {
     this.acc.push(...remain);
@@ -42,9 +47,7 @@ export class CharacterSorter {
       this.arraysToBeMerge.push(...this.mergedArrays);
       this.mergedArrays = [];
       if (this.arraysToBeMerge.length === 1) {
-        this.result = this.arraysToBeMerge.pop();
-        this.mergedArrays = [];
-        this.isFinished = true;
+        this.finishSort();
         return;
       }
     }
