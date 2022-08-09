@@ -4,6 +4,13 @@ type SortItem = Name[];
 type OrderdArray = SortItem[];
 
 type CharacterSorterConstructorArgs = { candicates: Name[] };
+
+const popItem = <T>(array: Array<T>): T => {
+  const item = array.shift();
+  if (item == null) throw Error;
+  return item;
+};
+
 export class CharacterSorter {
   arraysToBeMerge: OrderdArray[];
   mergedArrays: OrderdArray[] = [];
@@ -22,15 +29,9 @@ export class CharacterSorter {
       return;
     }
 
-    this.leftArray = this.popNextArrayToMerge();
-    this.rightArray = this.popNextArrayToMerge();
+    this.leftArray = popItem(this.arraysToBeMerge);
+    this.rightArray = popItem(this.arraysToBeMerge);
   }
-
-  popNextArrayToMerge = () => {
-    const array = this.arraysToBeMerge.shift();
-    if (array == null) throw Error;
-    return array;
-  };
 
   nextMerging = (remain: OrderdArray) => {
     this.acc.push(...remain);
@@ -47,8 +48,8 @@ export class CharacterSorter {
         return;
       }
     }
-    this.leftArray = this.popNextArrayToMerge();
-    this.rightArray = this.popNextArrayToMerge();
+    this.leftArray = popItem(this.arraysToBeMerge);
+    this.rightArray = popItem(this.arraysToBeMerge);
   };
 
   selectLeft = () => {
@@ -70,14 +71,14 @@ export class CharacterSorter {
     }
   };
   selectDraw = () => {
-    const rightItem = this.rightArray.shift();
-    if (rightItem == null) throw Error;
-    const leftItem = this.leftArray.shift();
-    if (leftItem == null) throw Error;
+    const rightItem = popItem(this.rightArray);
+    const leftItem = popItem(this.leftArray);
 
     this.acc.push([...leftItem, ...rightItem]);
     if (this.rightArray.length === 0) {
-      this.nextMerging([]);
+      this.nextMerging(this.leftArray);
+    } else if (this.leftArray.length === 0) {
+      this.nextMerging(this.rightArray);
     }
   };
 }
