@@ -5,7 +5,7 @@ type OrderdArray = SortItem[];
 
 type CharacterSorterConstructorArgs = { candicates: Name[] };
 
-const popItem = <T>(array: Array<T>): T => {
+const shiftItem = <T>(array: Array<T>): T => {
   const item = array.shift();
   if (item == null) throw Error;
   return item;
@@ -28,8 +28,7 @@ export class CharacterSorter {
       return;
     }
 
-    this.leftArray = popItem(this.arraysToBeMerge);
-    this.rightArray = popItem(this.arraysToBeMerge);
+    this.setMergingArrays()
   }
 
   finishSort = () => {
@@ -37,6 +36,11 @@ export class CharacterSorter {
     this.mergedArrays = [];
     this.isFinished = true;
   };
+
+  setMergingArrays = () =>{
+    this.leftArray = shiftItem(this.arraysToBeMerge);
+    this.rightArray = shiftItem(this.arraysToBeMerge);
+  }
 
   nextMerging = (remain: OrderdArray) => {
     this.acc.push(...remain);
@@ -51,13 +55,11 @@ export class CharacterSorter {
         return;
       }
     }
-    this.leftArray = popItem(this.arraysToBeMerge);
-    this.rightArray = popItem(this.arraysToBeMerge);
+    this.setMergingArrays()
   };
 
   selectLeft = () => {
-    const leftItem = this.leftArray.shift();
-    if (leftItem == null) throw Error;
+    const leftItem = shiftItem(this.leftArray)
 
     this.acc.push(leftItem);
     if (this.leftArray.length === 0) {
@@ -65,8 +67,7 @@ export class CharacterSorter {
     }
   };
   selectRight = () => {
-    const rightItem = this.rightArray.shift();
-    if (rightItem == null) throw Error;
+    const rightItem = shiftItem(this.rightArray)
 
     this.acc.push(rightItem);
     if (this.rightArray.length === 0) {
@@ -74,8 +75,8 @@ export class CharacterSorter {
     }
   };
   selectDraw = () => {
-    const rightItem = popItem(this.rightArray);
-    const leftItem = popItem(this.leftArray);
+    const rightItem = shiftItem(this.rightArray);
+    const leftItem = shiftItem(this.leftArray);
 
     this.acc.push([...leftItem, ...rightItem]);
     if (this.rightArray.length === 0) {
