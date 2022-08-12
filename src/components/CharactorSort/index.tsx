@@ -6,7 +6,7 @@ import { SortResult } from './SortResult';
 
 export const CharacterSort = () => {
   const characterSorterRef = useRef(
-    new CharacterSorter({ candicates: groupA.candicates, debug: true })
+    new CharacterSorter({ candicates: groupA.candicates })
   );
   const [choices, setChoices] = useState<{
     left: Name;
