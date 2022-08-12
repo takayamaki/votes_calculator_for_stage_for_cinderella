@@ -1,5 +1,5 @@
 import { useRef, useState } from 'preact/hooks';
-import { CharacterSorter} from '../../lib/CharacterSorter';
+import { CharacterSorter } from '../../lib/CharacterSorter';
 import { groupA } from '../../lib/constants/year2022';
 import { Name, OrderdArray } from '../../lib/types';
 import { SortResult } from './SortResult';
@@ -36,9 +36,9 @@ export const CharacterSort = () => {
       setRessult(characterSorterRef.current.result);
   };
 
-  if (characterSorterRef.current.isFinished) return <SortResult result={result} />;
-
-  return (
+  const children = characterSorterRef.current.isFinished ? (
+    <SortResult result={result} />
+  ) : (
     <table>
       <tbody>
         <tr>
@@ -55,5 +55,14 @@ export const CharacterSort = () => {
         </tr>
       </tbody>
     </table>
+  );
+
+  return (
+    <>
+      <h1>投票優先度決定</h1>
+      <h2>使い方</h2>
+      <p>好きな順、一番好きなアイドルと一緒に歌っているところを観たい順などの基準によって、より多く投票したいアイドルを選ぶ</p>
+      {children}
+    </>
   );
 };
