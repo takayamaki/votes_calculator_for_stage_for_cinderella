@@ -1,7 +1,4 @@
-import { Name } from '../types';
-
-type SortItem = Name[];
-export type OrderdArray = SortItem[];
+import { Name, OrderdArray } from '../types';
 
 type CharacterSorterConstructorArgs = {
   candicates: readonly Name[];

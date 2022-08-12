@@ -1,7 +1,8 @@
 import { useRef, useState } from 'preact/hooks';
-import { CharacterSorter, OrderdArray } from '../../lib/CharacterSorter';
+import { CharacterSorter} from '../../lib/CharacterSorter';
 import { groupA } from '../../lib/constants/year2022';
-import { Name } from '../../lib/types';
+import { Name, OrderdArray } from '../../lib/types';
+import { SortResult } from './SortResult';
 
 export const CharacterSort = () => {
   const characterSorterRef = useRef(
@@ -35,7 +36,7 @@ export const CharacterSort = () => {
       setRessult(characterSorterRef.current.result);
   };
 
-  if (characterSorterRef.current.isFinished) return <>{result}</>;
+  if (characterSorterRef.current.isFinished) return <SortResult result={result} />;
 
   return (
     <table>
