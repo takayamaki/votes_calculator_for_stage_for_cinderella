@@ -14,6 +14,17 @@ const shiftItem = <T>(array: Array<T>): T => {
   return item;
 };
 
+const randRange = (min: number, max: number, seed: number): number => {
+  if (seed >= 1) {
+    throw Error;
+  } else {
+    return Math.floor(seed * (max - min + 1) + min);
+  }
+};
+
+export const sample = <T>(array: Array<T>, seed: number = Math.random()): T =>
+  array[randRange(0, array.length - 1, seed)];
+
 export class CharacterSorter {
   arraysToBeMerge: OrderdArray[];
   mergedArrays: OrderdArray[] = [];
@@ -62,8 +73,8 @@ export class CharacterSorter {
 
   setNextChoices = () => {
     this.choices = {
-      left: this.leftArray[0][0],
-      right: this.rightArray[0][0],
+      left: sample(this.leftArray[0]),
+      right: sample(this.rightArray[0]),
     };
   };
 

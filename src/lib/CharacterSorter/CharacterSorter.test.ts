@@ -5,9 +5,15 @@ it('2 items initial state', () => {
     candicates: ['A', 'B'],
   });
 
+  expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'A',
+      right: 'B',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.leftArray).toStrictEqual([['A']]);
   expect(sorter.rightArray).toStrictEqual([['B']]);
-  expect(sorter.isFinished).toBe(false);
 });
 
 it('2 items left', () => {
@@ -54,6 +60,12 @@ it('3 items 2 step', () => {
   sorter.selectLeft();
 
   expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'C',
+      right: 'A',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.mergedArrays).toStrictEqual([]);
   expect(sorter.acc).toStrictEqual([]);
   expect(sorter.leftArray).toStrictEqual([['C']]);
@@ -75,6 +87,12 @@ it('3 items 3 step', () => {
   sorter.selectLeft();
 
   expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'C',
+      right: 'A',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.mergedArrays).toStrictEqual([]);
   expect(sorter.acc).toStrictEqual([]);
   expect(sorter.leftArray).toStrictEqual([['C']]);
@@ -83,6 +101,12 @@ it('3 items 3 step', () => {
   sorter.selectRight();
 
   expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'C',
+      right: 'B',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.mergedArrays).toStrictEqual([]);
   expect(sorter.acc).toStrictEqual([['A']]);
   expect(sorter.leftArray).toStrictEqual([['C']]);
@@ -104,6 +128,12 @@ it('3 items 2 step includes draw', () => {
   sorter.selectLeft();
 
   expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'C',
+      right: 'A',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.mergedArrays).toStrictEqual([]);
   expect(sorter.acc).toStrictEqual([]);
   expect(sorter.leftArray).toStrictEqual([['C']]);
@@ -125,6 +155,16 @@ it('3 items 2 step all draw', () => {
   sorter.selectDraw();
 
   expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'C',
+      right: 'A',
+    },
+    {
+      left: 'C',
+      right: 'B',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.mergedArrays).toStrictEqual([]);
   expect(sorter.acc).toStrictEqual([]);
   expect(sorter.leftArray).toStrictEqual([['C']]);
@@ -138,6 +178,66 @@ it('3 items 2 step all draw', () => {
   expect(sorter.result).toStrictEqual([['C', 'A', 'B']]);
 });
 
+it('4 items', () => {
+  const sorter = new CharacterSorter({
+    candicates: ['A', 'B', 'C', 'D'],
+  });
+
+  sorter.selectLeft();
+
+  expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'C',
+      right: 'D',
+    },
+  ]).toContainEqual(sorter.choices);
+  expect(sorter.mergedArrays).toStrictEqual([[['A'], ['B']]]);
+  expect(sorter.arraysToBeMerge).toStrictEqual([]);
+  expect(sorter.acc).toStrictEqual([]);
+  expect(sorter.leftArray).toStrictEqual([['C']]);
+  expect(sorter.rightArray).toStrictEqual([['D']]);
+
+  sorter.selectLeft();
+
+  expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'A',
+      right: 'C',
+    },
+  ]).toContainEqual(sorter.choices);
+  expect(sorter.mergedArrays).toStrictEqual([]);
+  expect(sorter.arraysToBeMerge).toStrictEqual([]);
+  expect(sorter.acc).toStrictEqual([]);
+  expect(sorter.arraysToBeMerge).toStrictEqual([]);
+  expect(sorter.leftArray).toStrictEqual([['A'], ['B']]);
+  expect(sorter.rightArray).toStrictEqual([['C'], ['D']]);
+
+  sorter.selectLeft();
+
+  expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'B',
+      right: 'C',
+    },
+  ]).toContainEqual(sorter.choices);
+  expect(sorter.mergedArrays).toStrictEqual([]);
+  expect(sorter.arraysToBeMerge).toStrictEqual([]);
+  expect(sorter.acc).toStrictEqual([['A']]);
+  expect(sorter.arraysToBeMerge).toStrictEqual([]);
+  expect(sorter.leftArray).toStrictEqual([['B']]);
+  expect(sorter.rightArray).toStrictEqual([['C'], ['D']]);
+
+  sorter.selectLeft();
+
+  expect(sorter.isFinished).toBe(true);
+  expect(sorter.mergedArrays).toStrictEqual([]);
+  expect(sorter.arraysToBeMerge).toStrictEqual([]);
+  expect(sorter.result).toStrictEqual([['A'], ['B'], ['C'], ['D']]);
+});
+
 it('5 items 6 step includes draw', () => {
   const sorter = new CharacterSorter({
     candicates: ['A', 'B', 'C', 'D', 'E'],
@@ -146,6 +246,12 @@ it('5 items 6 step includes draw', () => {
   sorter.selectLeft();
 
   expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'C',
+      right: 'D',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.mergedArrays).toStrictEqual([[['A'], ['B']]]);
   expect(sorter.arraysToBeMerge).toStrictEqual([[['E']]]);
   expect(sorter.acc).toStrictEqual([]);
@@ -155,6 +261,12 @@ it('5 items 6 step includes draw', () => {
   sorter.selectLeft();
 
   expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'E',
+      right: 'A',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.mergedArrays).toStrictEqual([]);
   expect(sorter.arraysToBeMerge).toStrictEqual([[['C'], ['D']]]);
   expect(sorter.acc).toStrictEqual([]);
@@ -164,6 +276,12 @@ it('5 items 6 step includes draw', () => {
   sorter.selectLeft();
 
   expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'C',
+      right: 'E',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.mergedArrays).toStrictEqual([]);
   expect(sorter.arraysToBeMerge).toStrictEqual([]);
   expect(sorter.acc).toStrictEqual([]);
@@ -173,6 +291,12 @@ it('5 items 6 step includes draw', () => {
   sorter.selectDraw();
 
   expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'C',
+      right: 'E',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.mergedArrays).toStrictEqual([]);
   expect(sorter.arraysToBeMerge).toStrictEqual([]);
   expect(sorter.acc).toStrictEqual([['C', 'E']]);
@@ -182,6 +306,12 @@ it('5 items 6 step includes draw', () => {
   sorter.selectRight();
 
   expect(sorter.isFinished).toBe(false);
+  expect([
+    {
+      left: 'D',
+      right: 'B',
+    },
+  ]).toContainEqual(sorter.choices);
   expect(sorter.mergedArrays).toStrictEqual([]);
   expect(sorter.arraysToBeMerge).toStrictEqual([]);
   expect(sorter.acc).toStrictEqual([['C', 'E'], ['A']]);
